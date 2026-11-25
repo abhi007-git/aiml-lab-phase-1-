@@ -1,0 +1,5 @@
+{
+  "name": "SeismoAI — Seismic Risk Observation Console",
+  "description": "AI-Based Seismic Risk Prediction & Safe Evacuation Planning System for Japan using USGS earthquake data (2000-2025), Random Forest classification, H3 spatial indexing, K-Means tectonic zonation, Isolation Forest anomaly detection, SHAP explainability, and A* evacuation routing.",
+  "requestFramePermissions": []
+}
