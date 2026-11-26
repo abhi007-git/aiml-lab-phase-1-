@@ -299,8 +299,18 @@ async function startServer() {
   }
 
   const port = Number(process.env.PORT ?? 3000);
-  app.listen(port, '0.0.0.0', () => {
-    console.log(`SeismoAI Observation Console listening on http://0.0.0.0:${port}`);
+  const httpServer = app.listen(port, '0.0.0.0', () => {
+    console.log(`SeismoAI Observation Console running at http://localhost:${port}`);
+  });
+  httpServer.on('error', (err: NodeJS.ErrnoException) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(
+        `Port ${port} is already in use. Run with another port (e.g. PORT=3001 npm run dev) or free port ${port}.`
+      );
+    } else {
+      console.error('Server error:', err);
+    }
+    process.exit(1);
   });
 }
 

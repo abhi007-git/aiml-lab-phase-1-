@@ -7,6 +7,8 @@ interface PlotlyChartProps {
   style?: React.CSSProperties;
 }
 
+const PlotlyLib = (Plotly as unknown as { default?: typeof Plotly }).default ?? Plotly;
+
 export const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, layout, style }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -14,7 +16,7 @@ export const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, layout, style })
     const el = containerRef.current;
     if (!el) return;
 
-    Plotly.react(
+    PlotlyLib.react(
       el,
       data,
       {
@@ -29,7 +31,7 @@ export const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, layout, style })
 
     const handleResize = () => {
       if (containerRef.current) {
-        Plotly.Plots.resize(containerRef.current);
+        PlotlyLib.Plots.resize(containerRef.current);
       }
     };
     window.addEventListener('resize', handleResize);
@@ -41,7 +43,7 @@ export const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, layout, style })
   useEffect(() => {
     const el = containerRef.current;
     return () => {
-      if (el) Plotly.purge(el);
+      if (el) PlotlyLib.purge(el);
     };
   }, []);
 
